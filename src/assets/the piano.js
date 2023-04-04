@@ -1,0 +1,245 @@
+import {NOTE_TYPE} from "./NOTE_TYPE.js";
+
+
+export let thePiano = {
+  tempo: 126.5,
+  notes: [
+      // 1
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+  
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+    
+    // 5
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+    
+    // 9
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+    
+    // 13
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4/(3/2), NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [1, NOTE_TYPE.SINGLE],
+    
+    // 17
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+    
+    // 21
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+    
+    // 25
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    // 29
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4/(3/2), NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [1, NOTE_TYPE.SINGLE],
+    
+    // 33
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [2, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.NONE],
+    [4, NOTE_TYPE.NONE],
+      
+      //37
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    [4, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.NONE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    [8, NOTE_TYPE.SINGLE],
+    
+    [4, NOTE_TYPE.SINGLE],
+  ]
+}
