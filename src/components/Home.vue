@@ -3,7 +3,7 @@ import {onMounted, reactive, ref} from "vue";
 import {thePiano} from "../assets/the piano.js";
 import {NOTE_TYPE} from "../assets/NOTE_TYPE.js";
 import audioURL from '../assets/Cheetah Mobile Games - The Piano.mp3'
-let audioURL = ref(audioURL);
+let audioURLRef = ref(audioURL);
 
 const VISUAL_DELAY = 0;
 const MAX_CHECK = 300;
@@ -243,7 +243,7 @@ onMounted(() => {
     </Transition>
     <div v-if="end || !play" class="clickPrompt startBtnAnimation"/>
     <div class="clickPrompt clickAnimation" v-for="item in clickPrompt" :class="item.status" :key="item.id"/>
-    <audio ref="audio" :src="audioURL" />
+    <audio ref="audio" :src="audioURLRef" />
   </div>
 </template>
 
