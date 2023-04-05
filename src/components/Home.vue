@@ -2,7 +2,8 @@
 import {onMounted, reactive, ref} from "vue";
 import {thePiano} from "../assets/the piano.js";
 import {NOTE_TYPE} from "../assets/NOTE_TYPE.js";
-import audioURL from '/src/assets/Cheetah Mobile Games - The Piano.mp3'
+import audioURL from '../assets/Cheetah Mobile Games - The Piano.mp3'
+let audioURL = ref(audioURL);
 
 const VISUAL_DELAY = 0;
 const MAX_CHECK = 300;
@@ -94,7 +95,6 @@ async function readAndInitNote() {
     let toBestTimeDur = NOTE_ANIMATION_DUR.value
 
     if (note.type !== NOTE_TYPE.NONE) {
-      console.log(note)
       let expBestTime = performance.now() + toBestTimeDur;
 
       checkList.push(
@@ -126,9 +126,9 @@ function checkNote() {
   let note = checkList.shift();
   clearTimeout(note.timer)
   let dur = Math.abs(note.expBestTime - time);
-  sum1 += dur;
+  sum1 += time-note.expBestTime;
   cnt1++;
-  console.log("diff dur: ", dur.toFixed(2), (sum1/cnt1).toFixed(2))
+  console.log("diff dur: ", time > note.expBestTime ? "L" : "E", (time-note.expBestTime).toFixed(2), (sum1/cnt1).toFixed(2))
   let thisScore = 100;
   if (dur <= 60) {
     addClickPrompt(CHECK_RESULT.PERFECT);
@@ -152,11 +152,10 @@ function checkNote() {
   score.cnt++;
 }
 
-
+let audio = ref("");
 function startGame() {
-  let audio = document.querySelector("#audio");
   setTimeout(()=> {
-    audio.play();
+    audio.value.play();
   }, NOTE_ANIMATION_DUR.value + VISUAL_DELAY);
   play.value = true;
   readAndInitNote();
@@ -188,14 +187,32 @@ function initInteractionEvent(downEvent, upEvent, onDown, onPress, onRelease, ad
   })
 }
 
+let mouseEffect = ref("");
+let last = null;
 function initMouseEvent(onDown, onPress, onRelease) {
-  document.documentElement.addEventListener("mousemove", e => setMousePos(e.clientX, e.clientY));
+  document.documentElement.addEventListener("mousemove", e => {
+    cancelAnimationFrame(last);
+    let index = 0;
+    let mouseEfxX = mouseEffect.value.offsetLeft;
+    let mouseEfxY = mouseEffect.value.offsetTop;
+    let newX = mouseEfxX, newY = mouseEfxY;
+    let mouseMove = () => last = requestAnimationFrame(()=>{
+      let dis = Math.sqrt(Math.pow(e.clientX - newX, 2) + Math.pow(e.clientY - newY, 2));
+      if(dis > 5 ) {
+        newX += (e.clientX - newX) / 4;
+        newY += (e.clientY - newY) / 4;
+        setMousePos(newX, newY)
+      }
+      index++;
+      last = requestAnimationFrame(mouseMove)
+    })
+    mouseMove();
+  });
 
   initInteractionEvent('mousedown', 'mouseup', onDown, onPress, onRelease);
 }
 
 onMounted(() => {
-  document.getElementById('audio').src = audioURL;
   let userHit = () => {
     if (play.value) checkNote(performance.now());
     else startGame();
@@ -207,19 +224,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mouseEffect">
+  <div ref="mouseEffect" class="mouseEffect">
+    <svg class="noteAnimation" v-for="item in notePrompt" width="2000" height="2000" :class="item.status" :key="item.id"  style="position: absolute">
+      <circle r="50" cx="1000" cy="1000" fill="none" stroke="white">
+        <animate
+            attributeName="r" from="1000" to="50"
+            :dur="`${NOTE_ANIMATION_DUR}ms`" repeatCount="1" calcMode="spline"  keySplines="0.210, 0.305, 0.950, 1.000"/>
+      </circle>
+    </svg>
+    <svg style="position: absolute" width="140" height="140">
+      <circle r="50" cx="70" cy="70" fill="none" stroke-width="4" stroke="white" />
+    </svg>
     <Transition name="startBtn">
       <div v-if="end || !play" class="clickPrompt startBtn">
         <span v-if="!play">开始</span>
         <span style="cursor: none" v-if="end">{{(score.sum/score.cnt).toFixed(2)}}%</span>
       </div>
     </Transition>
-    <div v-if="!play" class="clickPrompt startBtnAnimation"/>
+    <div v-if="end || !play" class="clickPrompt startBtnAnimation"/>
     <div class="clickPrompt clickAnimation" v-for="item in clickPrompt" :class="item.status" :key="item.id"/>
-    <div class="notePrompt noteAnimation" :style="{animationDuration: `${NOTE_ANIMATION_DUR}ms`}"
-         v-for="item in notePrompt" :class="item.status" :key="item.id"/>
-    <!--    <div class="notePrompt noteAnimation"/>-->
-    <audio id="audio" />
+    <audio ref="audio" :src="audioURL" />
   </div>
 </template>
 
@@ -230,7 +254,6 @@ onMounted(() => {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 4px solid white;
   position: absolute;
   left: v-bind(mousePos.x);
   top: v-bind(mousePos.y);
@@ -293,17 +316,9 @@ onMounted(() => {
   animation: 300ms click forwards;
 }
 
-.notePrompt {
-  width: 100%;
-  height: 100%;
-  border: 3px solid #ffffffcc;
-  /*background: radial-gradient(transparent 30%, #ffffff33 100%);*/
-  border-radius: 50%;
-  position: absolute;
-}
-
 .noteAnimation {
-  animation: cubic-bezier(0.210, 0.305, 0.950, 1.000) note forwards;
+  opacity: 1;
+  animation: 2000ms cubic-bezier(0.210, 0.305, 0.950, 1.000) note forwards;
 }
 
 .miss {
@@ -345,9 +360,6 @@ onMounted(() => {
 
 @keyframes note {
   from {
-    width: 1600%;
-    height: 1600%;
-    /*transform: scale(16);*/
     opacity: 0;
   }
   50% {

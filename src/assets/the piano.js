@@ -233,13 +233,5 @@ export let thePiano = {
     [4, NOTE_TYPE.SINGLE],
     
     [4, NOTE_TYPE.SINGLE],
-    [8, NOTE_TYPE.NONE],
-    [8, NOTE_TYPE.SINGLE],
-    [8, NOTE_TYPE.SINGLE],
-    [8, NOTE_TYPE.SINGLE],
-    [8, NOTE_TYPE.SINGLE],
-    [8, NOTE_TYPE.SINGLE],
-    
-    [4, NOTE_TYPE.SINGLE],
   ]
 }
