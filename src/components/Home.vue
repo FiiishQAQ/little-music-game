@@ -2,6 +2,7 @@
 import {onMounted, reactive, ref} from "vue";
 import {thePiano} from "../assets/the piano.js";
 import {NOTE_TYPE} from "../assets/NOTE_TYPE.js";
+import audioURL from '/src/assets/Cheetah Mobile Games - The Piano.mp3'
 
 const VISUAL_DELAY = 0;
 const MAX_CHECK = 300;
@@ -194,6 +195,7 @@ function initMouseEvent(onDown, onPress, onRelease) {
 }
 
 onMounted(() => {
+  document.getElementById('audio').src = audioURL;
   let userHit = () => {
     if (play.value) checkNote(performance.now());
     else startGame();
@@ -217,7 +219,7 @@ onMounted(() => {
     <div class="notePrompt noteAnimation" :style="{animationDuration: `${NOTE_ANIMATION_DUR}ms`}"
          v-for="item in notePrompt" :class="item.status" :key="item.id"/>
     <!--    <div class="notePrompt noteAnimation"/>-->
-    <audio id="audio" src="/src/assets/Cheetah%20Mobile%20Games%20-%20The%20Piano.mp3" />
+    <audio id="audio" />
   </div>
 </template>
 
