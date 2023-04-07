@@ -3,9 +3,10 @@ import {onMounted, reactive, ref} from "vue";
 import {thePiano} from "../assets/the piano.js";
 import {NOTE_TYPE} from "../assets/NOTE_TYPE.js";
 import audioURL from '../assets/Cheetah Mobile Games - The Piano.mp3'
+import axios from "axios";
 let audioURLRef = ref(audioURL);
 
-const VISUAL_DELAY = 0;
+const VISUAL_DELAY = -100;
 const MAX_CHECK = 300;
 const CHECK_RESULT = {
   PERFECT: 'perfect',
@@ -16,6 +17,8 @@ const CHECK_RESULT = {
 }
 
 let NOTE_ANIMATION_DUR = ref(2000);
+
+let audios = {};
 
 let score = reactive({sum: 0, cnt: 0});
 let play = ref(false);
@@ -155,7 +158,8 @@ function checkNote() {
 let audio = ref("");
 function startGame() {
   setTimeout(()=> {
-    audio.value.play();
+    audios.bgm.connect(audios.context.destination);
+    audios.bgm.start(0);
   }, NOTE_ANIMATION_DUR.value + VISUAL_DELAY);
   play.value = true;
   readAndInitNote();
@@ -190,29 +194,44 @@ function initInteractionEvent(downEvent, upEvent, onDown, onPress, onRelease, ad
 let mouseEffect = ref("");
 let last = null;
 function initMouseEvent(onDown, onPress, onRelease) {
+  let timer = null;
   document.documentElement.addEventListener("mousemove", e => {
-    cancelAnimationFrame(last);
-    let index = 0;
-    let mouseEfxX = mouseEffect.value.offsetLeft;
-    let mouseEfxY = mouseEffect.value.offsetTop;
-    let newX = mouseEfxX, newY = mouseEfxY;
-    let mouseMove = () => last = requestAnimationFrame(()=>{
-      let dis = Math.sqrt(Math.pow(e.clientX - newX, 2) + Math.pow(e.clientY - newY, 2));
-      if(dis > 5 ) {
-        newX += (e.clientX - newX) / 4;
-        newY += (e.clientY - newY) / 4;
-        setMousePos(newX, newY)
-      }
-      index++;
-      last = requestAnimationFrame(mouseMove)
-    })
-    mouseMove();
+    if(timer) return;
+    timer = setTimeout(()=>{
+      timer = null;
+      cancelAnimationFrame(last);
+      let index = 0;
+      let mouseEfxX = mouseEffect.value.offsetLeft;
+      let mouseEfxY = mouseEffect.value.offsetTop;
+      let newX = mouseEfxX, newY = mouseEfxY;
+      let mouseMove = () => last = requestAnimationFrame(()=>{
+        let dis = Math.hypot(e.clientX - newX, e.clientY - newY);
+        if(dis > 5 ) {
+          newX += (e.clientX - newX) / 4;
+          newY += (e.clientY - newY) / 4;
+          setMousePos(newX, newY)
+        }
+        index++;
+        last = requestAnimationFrame(mouseMove)
+      })
+      mouseMove();
+    }, 16);
   });
 
   initInteractionEvent('mousedown', 'mouseup', onDown, onPress, onRelease);
 }
 
-onMounted(() => {
+onMounted(async () => {
+  audios.context = new AudioContext();
+  audios.gain = audios.context.createGain();
+  audios.gain.gain.value = 1;
+  axios.get("src/assets/Cheetah Mobile Games - The Piano.mp3", {
+    responseType: "arraybuffer"
+  }).then(async response=>{
+    let sourceNode = audios.context.createBufferSource();
+    sourceNode.buffer = await audios.context.decodeAudioData(response.data);
+    audios.bgm = sourceNode;
+  })
   let userHit = () => {
     if (play.value) checkNote(performance.now());
     else startGame();
@@ -226,7 +245,7 @@ onMounted(() => {
 <template>
   <div ref="mouseEffect" class="mouseEffect">
     <svg class="noteAnimation" v-for="item in notePrompt" width="2000" height="2000" :class="item.status" :key="item.id"  style="position: absolute">
-      <circle r="50" cx="1000" cy="1000" fill="none" stroke="white">
+      <circle r="50" cx="1000" cy="1000" fill="none" stroke-width="2" stroke="white">
         <animate
             attributeName="r" from="1000" to="50"
             :dur="`${NOTE_ANIMATION_DUR}ms`" repeatCount="1" calcMode="spline"  keySplines="0.210, 0.305, 0.950, 1.000"/>
@@ -243,7 +262,6 @@ onMounted(() => {
     </Transition>
     <div v-if="end || !play" class="clickPrompt startBtnAnimation"/>
     <div class="clickPrompt clickAnimation" v-for="item in clickPrompt" :class="item.status" :key="item.id"/>
-    <audio ref="audio" :src="audioURLRef" />
   </div>
 </template>
 
